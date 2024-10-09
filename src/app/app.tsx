@@ -1,14 +1,24 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { productRepo } from '../repo';
+import { HomePage } from '../pages';
 
-import NxWelcome from './nx-welcome';
-
-export function App() {
+const App = () => {
   return (
-    <div>
-      <NxWelcome title="react-composite-compound" />
-    </div>
+    <QueryClientProvider
+      client={
+        new QueryClient({
+          defaultOptions: {
+            queries: {
+              refetchOnWindowFocus: false,
+              retry: 0,
+            },
+          },
+        })
+      }
+    >
+      <HomePage />
+    </QueryClientProvider>
   );
-}
+};
 
-export default App;
+export { App };
